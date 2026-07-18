@@ -227,8 +227,8 @@
         <h2 class="section__title reveal">Примерочная Fay — загляните за занавес</h2>
         <p class="backstage__lead reveal">
           Пока вы выбираете, за кулисами идёт работа: вещи проходят проверку,
-          отпариваются и ждут своих владельцев. Отдёрните занавес —
-          и посветите курсором по тёмным углам.
+          отпариваются и ждут своих владельцев. Проведите по занавесу —
+          ткань расступится под курсором. Нажмите — и он распахнётся.
         </p>
         <div class="stage reveal" id="stage">
           <div class="stage__scene">
@@ -294,8 +294,7 @@
             <button class="hotspot" style="--hx:19%; --hy:42%" data-tip="Свет как в гримёрке: в примерочной видно всё, как есть" aria-label="Про зеркало"></button>
             <button class="hotspot" style="--hx:81%; --hy:81%" data-tip="Личные заказы упакованы и подписаны — каждый ждёт владельца" aria-label="Про коробки с заказами"></button>
           </div>
-          <div class="stage__curtain stage__curtain--left" aria-hidden="true"></div>
-          <div class="stage__curtain stage__curtain--right" aria-hidden="true"></div>
+          <canvas id="curtain-canvas" aria-hidden="true"></canvas>
           <div class="stage__valance" aria-hidden="true"></div>
           <button class="stage__hint" id="stage-toggle">Открыть занавес</button>
         </div>
