@@ -632,6 +632,53 @@ a { color: inherit; }
 
 .product__ask:hover { color: var(--accent); }
 
+/* ============ FAQ ============ */
+.faq {
+  max-width: 760px;
+  margin-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq__item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 22px 40px 22px 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.25rem;
+  position: relative;
+  transition: color 0.25s;
+}
+
+.faq__item summary::-webkit-details-marker { display: none; }
+
+.faq__item summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: var(--accent);
+  transition: transform 0.3s;
+}
+
+.faq__item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+
+.faq__item summary:hover { color: var(--accent); }
+
+.faq__item p {
+  padding: 0 40px 24px 0;
+  color: var(--muted);
+  font-size: 0.97rem;
+}
+
 /* ============ Контакты ============ */
 .contact__grid {
   display: grid;
