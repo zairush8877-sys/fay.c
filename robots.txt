@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zairush8877-sys.github.io/fay.c/sitemap.xml
