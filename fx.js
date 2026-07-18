@@ -171,29 +171,132 @@
     const toggle = document.getElementById("stage-toggle");
     const light = document.getElementById("stage-light");
     const dustCanvas = document.getElementById("dust-canvas");
+    const curtainCanvas = document.getElementById("curtain-canvas");
+
+    let openTarget = 0; /* 0 — закрыт, 1 — распахнут */
 
     function setOpen(open) {
+      openTarget = open ? 1 : 0;
       stage.classList.toggle("is-open", open);
-      toggle.textContent = open ? "Закрыть занавес" : "Открыть занавес";
+      toggle.textContent = open ? "Закрыть занавес" : "Распахнуть занавес";
     }
 
     if (reduced) {
       /* без анимаций: занавес сразу открыт, сцена освещена */
+      curtainCanvas.style.display = "none";
       setOpen(true);
       light.style.opacity = "0";
       return;
     }
 
+    /* ---- Ткань занавеса: полосы-складки на пружинах ---- */
+    const cctx = curtainCanvas.getContext("2d");
+    const off = document.createElement("canvas");
+    const SW = 7;               /* ширина полосы, css px */
+    let W = 0, H = 0, strips = 0;
+    let cur = [], vel = [];
+    let openNow = 0;            /* плавное состояние раскрытия */
+    const mouse = { x: -1e4, y: 0, inside: false };
+
+    function paintPattern() {
+      off.width = W; off.height = H;
+      const c = off.getContext("2d");
+      const fold = 26;
+      for (let x = 0; x < W; x += fold) {
+        const g = c.createLinearGradient(x, 0, x + fold, 0);
+        g.addColorStop(0, "#2b190c");
+        g.addColorStop(0.35, "#6b4223");
+        g.addColorStop(0.55, "#59371f");
+        g.addColorStop(1, "#311d0e");
+        c.fillStyle = g;
+        c.fillRect(x, 0, fold, H);
+      }
+      /* тень сверху и снизу */
+      let g = c.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, "rgba(0,0,0,0.4)");
+      g.addColorStop(0.14, "rgba(0,0,0,0)");
+      g.addColorStop(0.82, "rgba(0,0,0,0)");
+      g.addColorStop(1, "rgba(0,0,0,0.45)");
+      c.fillStyle = g;
+      c.fillRect(0, 0, W, H);
+      /* золотая бахрома */
+      c.fillStyle = "#c9a36a";
+      for (let x = 2; x < W; x += 11) c.fillRect(x, H - 15, 5, 15);
+    }
+
+    function resizeCurtain() {
+      W = stage.offsetWidth; H = stage.offsetHeight;
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      curtainCanvas.width = W * dpr; curtainCanvas.height = H * dpr;
+      curtainCanvas.style.width = W + "px"; curtainCanvas.style.height = H + "px";
+      cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      strips = Math.ceil(W / SW) + 1;
+      cur = new Float32Array(strips);
+      vel = new Float32Array(strips);
+      paintPattern();
+    }
+
+    function curtainFrame(t) {
+      openNow += (openTarget - openNow) * 0.045;
+      const center = W / 2;
+      const sigma = Math.max(90, W * 0.09);
+      const AMP = Math.min(190, W * 0.22);
+
+      for (let i = 0; i < strips; i++) {
+        const xi = i * SW + SW / 2;
+        const side = xi < center ? -1 : 1;
+        /* полное раскрытие: полосы уезжают к краям и собираются в стопку */
+        let target = openNow * side * ((side < 0 ? xi : W - xi) * 0.94);
+        /* распахивание тканью под курсором */
+        if (mouse.inside && openNow < 0.7) {
+          const dx = xi - mouse.x;
+          const gs = Math.exp(-(dx * dx) / (2 * sigma * sigma));
+          target += Math.sign(dx || 1) * gs * AMP * (1 - openNow);
+        }
+        /* дыхание ткани в покое */
+        target += Math.sin(t * 0.0011 + xi * 0.02) * 3 * (1 - openNow);
+
+        vel[i] = (vel[i] + (target - cur[i]) * 0.07) * 0.84;
+        cur[i] += vel[i];
+      }
+
+      cctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < strips; i++) {
+        const sx = i * SW;
+        const bob = Math.sin(t * 0.0016 + i * 0.4) * 1.3 * (1 - openNow);
+        cctx.drawImage(off, sx, 0, SW, H, sx + cur[i], bob, SW, H);
+      }
+      requestAnimationFrame(curtainFrame);
+    }
+
+    stage.addEventListener("mousemove", (e) => {
+      const r = stage.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      mouse.inside = true;
+    }, { passive: true });
+    stage.addEventListener("mouseleave", () => { mouse.inside = false; mouse.x = -1e4; });
+    stage.addEventListener("touchmove", (e) => {
+      const t0 = e.touches[0];
+      if (!t0) return;
+      const r = stage.getBoundingClientRect();
+      mouse.x = t0.clientX - r.left;
+      mouse.inside = true;
+    }, { passive: true });
+    stage.addEventListener("touchend", () => { mouse.inside = false; mouse.x = -1e4; });
+
     toggle.addEventListener("click", (e) => {
       e.stopPropagation();
-      setOpen(!stage.classList.contains("is-open"));
+      setOpen(openTarget === 0);
     });
 
     stage.addEventListener("click", (e) => {
-      if (!stage.classList.contains("is-open") && !e.target.closest(".stage__hint")) {
-        setOpen(true);
-      }
+      if (openTarget === 0 && !e.target.closest(".stage__hint")) setOpen(true);
     });
+
+    addEventListener("resize", resizeCurtain);
+    resizeCurtain();
+    requestAnimationFrame(curtainFrame);
 
     /* луч света за курсором/пальцем */
     function moveLight(clientX, clientY) {
@@ -209,17 +312,17 @@
 
     /* пыль, плавающая в луче */
     const ctx = dustCanvas.getContext("2d");
-    let W = 0, H = 0, motes = [];
+    let DW = 0, DH = 0, motes = [];
 
     function resizeDust() {
-      W = stage.offsetWidth; H = stage.offsetHeight;
+      DW = stage.offsetWidth; DH = stage.offsetHeight;
       const dpr = Math.min(devicePixelRatio || 1, 2);
-      dustCanvas.width = W * dpr; dustCanvas.height = H * dpr;
-      dustCanvas.style.width = W + "px"; dustCanvas.style.height = H + "px";
+      dustCanvas.width = DW * dpr; dustCanvas.height = DH * dpr;
+      dustCanvas.style.width = DW + "px"; dustCanvas.style.height = DH + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       motes = Array.from({ length: 70 }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
+        x: Math.random() * DW,
+        y: Math.random() * DH,
         r: 0.4 + Math.random() * 1.4,
         vx: (Math.random() - 0.5) * 0.18,
         vy: -0.05 - Math.random() * 0.22,
@@ -228,16 +331,16 @@
     }
 
     function dustFrame(t) {
-      ctx.clearRect(0, 0, W, H);
+      ctx.clearRect(0, 0, DW, DH);
       if (stage.classList.contains("is-open")) {
         const ls = getComputedStyle(light);
-        const lx = parseFloat(ls.getPropertyValue("--lx")) / 100 * W || W / 2;
-        const ly = parseFloat(ls.getPropertyValue("--ly")) / 100 * H || H / 2;
+        const lx = parseFloat(ls.getPropertyValue("--lx")) / 100 * DW || DW / 2;
+        const ly = parseFloat(ls.getPropertyValue("--ly")) / 100 * DH || DH / 2;
         for (const m of motes) {
           m.x += m.vx; m.y += m.vy; m.tw += 0.03;
-          if (m.y < -4) { m.y = H + 4; m.x = Math.random() * W; }
-          if (m.x < -4) m.x = W + 4;
-          if (m.x > W + 4) m.x = -4;
+          if (m.y < -4) { m.y = DH + 4; m.x = Math.random() * DW; }
+          if (m.x < -4) m.x = DW + 4;
+          if (m.x > DW + 4) m.x = -4;
           const d = Math.hypot(m.x - lx, m.y - ly);
           const glow = Math.max(0, 1 - d / 280);
           const a = (0.06 + glow * 0.5) * (0.6 + 0.4 * Math.sin(m.tw));
