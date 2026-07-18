@@ -163,6 +163,98 @@
     }
   }
 
+  /* ---------- Примерочная: занавес и закулисье ---------- */
+  const stage = document.getElementById("stage");
+  if (stage) initStage(stage);
+
+  function initStage(stage) {
+    const toggle = document.getElementById("stage-toggle");
+    const light = document.getElementById("stage-light");
+    const dustCanvas = document.getElementById("dust-canvas");
+
+    function setOpen(open) {
+      stage.classList.toggle("is-open", open);
+      toggle.textContent = open ? "Закрыть занавес" : "Открыть занавес";
+    }
+
+    if (reduced) {
+      /* без анимаций: занавес сразу открыт, сцена освещена */
+      setOpen(true);
+      light.style.opacity = "0";
+      return;
+    }
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setOpen(!stage.classList.contains("is-open"));
+    });
+
+    stage.addEventListener("click", (e) => {
+      if (!stage.classList.contains("is-open") && !e.target.closest(".stage__hint")) {
+        setOpen(true);
+      }
+    });
+
+    /* луч света за курсором/пальцем */
+    function moveLight(clientX, clientY) {
+      const r = stage.getBoundingClientRect();
+      light.style.setProperty("--lx", ((clientX - r.left) / r.width * 100).toFixed(1) + "%");
+      light.style.setProperty("--ly", ((clientY - r.top) / r.height * 100).toFixed(1) + "%");
+    }
+    stage.addEventListener("mousemove", (e) => moveLight(e.clientX, e.clientY), { passive: true });
+    stage.addEventListener("touchmove", (e) => {
+      const t0 = e.touches[0];
+      if (t0) moveLight(t0.clientX, t0.clientY);
+    }, { passive: true });
+
+    /* пыль, плавающая в луче */
+    const ctx = dustCanvas.getContext("2d");
+    let W = 0, H = 0, motes = [];
+
+    function resizeDust() {
+      W = stage.offsetWidth; H = stage.offsetHeight;
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      dustCanvas.width = W * dpr; dustCanvas.height = H * dpr;
+      dustCanvas.style.width = W + "px"; dustCanvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      motes = Array.from({ length: 70 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.4 + Math.random() * 1.4,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: -0.05 - Math.random() * 0.22,
+        tw: Math.random() * Math.PI * 2,
+      }));
+    }
+
+    function dustFrame(t) {
+      ctx.clearRect(0, 0, W, H);
+      if (stage.classList.contains("is-open")) {
+        const ls = getComputedStyle(light);
+        const lx = parseFloat(ls.getPropertyValue("--lx")) / 100 * W || W / 2;
+        const ly = parseFloat(ls.getPropertyValue("--ly")) / 100 * H || H / 2;
+        for (const m of motes) {
+          m.x += m.vx; m.y += m.vy; m.tw += 0.03;
+          if (m.y < -4) { m.y = H + 4; m.x = Math.random() * W; }
+          if (m.x < -4) m.x = W + 4;
+          if (m.x > W + 4) m.x = -4;
+          const d = Math.hypot(m.x - lx, m.y - ly);
+          const glow = Math.max(0, 1 - d / 280);
+          const a = (0.06 + glow * 0.5) * (0.6 + 0.4 * Math.sin(m.tw));
+          ctx.fillStyle = "rgba(232, 213, 181," + a.toFixed(3) + ")";
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, m.r + glow, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      requestAnimationFrame(dustFrame);
+    }
+
+    addEventListener("resize", resizeDust);
+    resizeDust();
+    requestAnimationFrame(dustFrame);
+  }
+
   if (reduced) return;
 
   /* ---------- Фирменный курсор ---------- */
