@@ -572,159 +572,81 @@ a { color: inherit; }
 
 .stage {
   position: relative;
-  height: min(76vh, 620px);
+  height: min(78vh, 640px);
   border-radius: 6px;
   overflow: hidden;
-  background: #160f0a;
+  background: #120b06;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
 }
 
-.stage__scene {
-  position: absolute;
-  inset: 0;
-}
-
-.stage__scene svg {
+.stage__photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  filter: brightness(0.5);
-  transition: filter 1.2s ease 0.35s;
-}
-
-.stage.is-open .stage__scene svg { filter: brightness(1); }
-
-/* лампы гримёрки загораются после открытия */
-.bulbs circle {
-  opacity: 0.25;
-  transition: opacity 0.5s;
-}
-
-.stage.is-open .bulbs circle {
-  opacity: 1;
-  filter: drop-shadow(0 0 6px #e8d5b5);
-}
-
-/* вещи слегка покачиваются */
-.garment {
-  transform-box: fill-box;
-  transform-origin: 50% 0;
-  animation: sway 6s ease-in-out infinite;
-  animation-delay: var(--d, 0s);
-}
-
-@keyframes sway {
-  0%, 100% { transform: rotate(-1.1deg); }
-  50% { transform: rotate(1.1deg); }
+  object-fit: cover;
+  filter: saturate(0.94) contrast(1.03) brightness(0.98);
 }
 
 .stage__dust {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
 }
 
-/* луч света за курсором */
+/* мягкий тёплый свет за курсором поверх фото */
 .stage__light {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.8s ease 0.5s;
-  background: radial-gradient(280px circle at var(--lx, 50%) var(--ly, 45%),
-    rgba(232, 213, 181, 0.2), rgba(232, 213, 181, 0.05) 45%, transparent 70%);
+  transition: opacity 0.8s ease 0.3s;
+  background: radial-gradient(300px circle at var(--lx, 50%) var(--ly, 45%),
+    rgba(232, 213, 181, 0.14), transparent 65%);
   mix-blend-mode: screen;
 }
 
 .stage.is-open .stage__light { opacity: 1; }
 
-/* занавес: WebGL-бархат (fallback — CSS-полотна ниже) */
-.stage__curtain-canvas {
+/* вуаль-темнота, которую проявляет курсор (рисуется в fx.js) */
+#curtain-canvas {
   position: absolute;
   inset: 0;
   z-index: 3;
-  display: block;
+}
+
+.stage__caption {
+  position: absolute;
+  left: 26px;
+  bottom: 24px;
+  z-index: 4;
+  max-width: 460px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  color: #f2ebe1;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.7s ease 0.35s, transform 0.7s ease 0.35s;
   pointer-events: none;
 }
 
-/* когда WebGL поднялся — CSS-занавес и ламбрекен прячем */
-.stage--gl .stage__curtain,
-.stage--gl .stage__valance { display: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .stage__curtain-canvas,
-  .stage__curtain,
-  .stage__valance { display: none; }
-}
-
-/* занавес */
-.stage__curtain {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 52%;
-  z-index: 3;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.35), transparent 12%),
-    repeating-linear-gradient(90deg,
-      #4a2d18 0 12px, #6b4223 12px 26px, #341f10 26px 44px, #59371f 44px 58px);
-  box-shadow: inset 0 -60px 60px rgba(0, 0, 0, 0.5);
-  transition: transform 1.5s cubic-bezier(0.77, 0, 0.18, 1);
-  will-change: transform;
-}
-
-.stage__curtain::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 16px;
-  background: repeating-linear-gradient(90deg,
-    #c9a36a 0 5px, transparent 5px 11px);
-  opacity: 0.75;
-}
-
-.stage__curtain--left { left: 0; animation: curtain-breathe 7s ease-in-out infinite; }
-.stage__curtain--right { right: 0; animation: curtain-breathe 7s ease-in-out infinite reverse; }
-
-@keyframes curtain-breathe {
-  0%, 100% { transform: skewX(0deg); }
-  50% { transform: skewX(0.4deg); }
-}
-
-/* лёгкий «подгляд» при наведении до открытия */
-.stage:not(.is-open):hover .stage__curtain--left { transform: translateX(-3%); }
-.stage:not(.is-open):hover .stage__curtain--right { transform: translateX(3%); }
-
-.stage.is-open .stage__curtain--left { transform: translateX(-88%) scaleX(0.22); animation: none; }
-.stage.is-open .stage__curtain--right { transform: translateX(88%) scaleX(0.22); animation: none; }
-
-.stage__valance {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 46px;
-  z-index: 4;
-  background:
-    repeating-linear-gradient(90deg,
-      #4a2d18 0 12px, #6b4223 12px 26px, #341f10 26px 44px, #59371f 44px 58px);
-  border-bottom: 3px solid #c9a36a;
-  border-radius: 0 0 40% 40% / 0 0 55% 55%;
-}
+.stage.is-open .stage__caption { opacity: 1; transform: none; }
 
 .stage__hint {
   position: absolute;
   left: 50%;
-  bottom: 30px;
+  bottom: 26px;
   transform: translateX(-50%);
   z-index: 5;
   padding: 13px 28px;
   border-radius: 100px;
   border: 1px solid rgba(232, 213, 181, 0.45);
-  background: rgba(22, 15, 10, 0.55);
+  background: rgba(18, 11, 6, 0.55);
   backdrop-filter: blur(6px);
   color: #e8d5b5;
   font-family: var(--sans);
@@ -732,76 +654,16 @@ a { color: inherit; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s, opacity 0.4s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .stage__hint:hover { background: #c9a36a; color: #241a13; }
 
-/* подсказки-истории на объектах */
-.hotspot {
-  position: absolute;
-  left: var(--hx);
-  top: var(--hy);
-  width: 18px;
-  height: 18px;
-  z-index: 2;
-  border-radius: 50%;
-  border: 1px solid #e8d5b5;
-  background: rgba(232, 213, 181, 0.25);
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0.4);
-  transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
-}
-
-.stage.is-open .hotspot { opacity: 1; transform: scale(1); }
-
-.hotspot::before {
-  content: "";
-  position: absolute;
-  inset: -7px;
-  border-radius: 50%;
-  border: 1px solid rgba(232, 213, 181, 0.4);
-  animation: hotspot-pulse 2.4s ease-out infinite;
-}
-
-@keyframes hotspot-pulse {
-  0% { transform: scale(0.6); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-.hotspot::after {
-  content: attr(data-tip);
-  position: absolute;
-  bottom: 26px;
-  left: 50%;
-  transform: translateX(-50%) translateY(6px);
-  width: max-content;
-  max-width: 240px;
-  padding: 12px 16px;
-  border-radius: 4px;
-  background: rgba(22, 15, 10, 0.92);
-  border: 1px solid rgba(201, 163, 106, 0.5);
-  color: #efe7dc;
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  text-align: left;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
-}
-
-.hotspot:hover::after,
-.hotspot:focus-visible::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.stage.is-open .stage__caption ~ .stage__hint { bottom: 26px; }
 
 @media (max-width: 640px) {
   .stage { height: 70vh; }
-  .hotspot::after { max-width: 180px; }
+  .stage__caption { left: 18px; right: 18px; bottom: 78px; font-size: 1rem; }
 }
 
 /* ============ Витрина ============ */
