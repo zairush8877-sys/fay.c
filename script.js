@@ -36,6 +36,28 @@ const PRODUCTS = [
   { id: 31, name: "Колье-цепочка с логотипами CC", brand: "Chanel",       cat: "Аксессуары",     gender: "f", price: 280000, styles: ["classic", "trend"], occasions: ["evening", "daily"],palette: ["light", "neutral"], tint: "#93825e", image: "img/chanel-cc-chain.jpg" },
   { id: 32, name: "Сумка Evelyne III 29, чёрная", brand: "Hermès",        cat: "Сумки",          gender: "f", price: 720000, styles: ["quiet", "classic"], occasions: ["daily", "work"],   palette: ["dark", "neutral"],  tint: "#2e2013", image: "img/hermes-evelyne.jpg" },
   { id: 33, name: "Сумка Evelyne TPM, gold",     brand: "Hermès",         cat: "Сумки",          gender: "f", price: 460000, styles: ["quiet", "classic"], occasions: ["daily"],           palette: ["neutral"],          tint: "#8a5a34", image: "img/hermes-evelyne.jpg" },
+
+  /* Корейские новинки — без подписи бренда; фото добавятся по мере съёмки */
+  { id: 40, name: "Жакет оверсайз с мягкими плечами", brand: "", cat: "Новинки", gender: "f", price: 12990, styles: ["trend", "quiet"],   occasions: ["work", "daily"],   palette: ["neutral"],          tint: "#9c8a76" },
+  { id: 41, name: "Юбка-миди плиссе",             brand: "", cat: "Новинки", gender: "f", price: 7990,  styles: ["trend", "classic"], occasions: ["daily", "work"],   palette: ["light", "neutral"], tint: "#b3a48c" },
+  { id: 42, name: "Тренч с поясом, песочный",     brand: "", cat: "Новинки", gender: "f", price: 14990, styles: ["classic", "quiet"], occasions: ["daily", "work"],   palette: ["neutral", "light"], tint: "#a08b71" },
+  { id: 43, name: "Рубашка объёмного кроя, белая", brand: "", cat: "Новинки", gender: "u", price: 5990, styles: ["quiet", "casual"],  occasions: ["daily", "work"],   palette: ["light"],            tint: "#c6b89e" },
+  { id: 44, name: "Брюки палаццо со стрелками",   brand: "", cat: "Новинки", gender: "f", price: 8990,  styles: ["trend", "classic"], occasions: ["work", "evening"], palette: ["dark", "neutral"],  tint: "#54473c" },
+  { id: 45, name: "Кардиган крупной вязки",       brand: "", cat: "Новинки", gender: "u", price: 9990,  styles: ["casual", "quiet"],  occasions: ["daily"],           palette: ["neutral", "light"], tint: "#8a7460" },
+  { id: 46, name: "Платье-рубашка миди",          brand: "", cat: "Новинки", gender: "f", price: 10990, styles: ["quiet", "casual"],  occasions: ["daily", "work"],   palette: ["neutral"],          tint: "#7d6a58" },
+  { id: 47, name: "Топ с драпировкой",            brand: "", cat: "Новинки", gender: "f", price: 4590,  styles: ["trend"],            occasions: ["evening", "daily"],palette: ["light", "bright"],  tint: "#b39b7e" },
+  { id: 48, name: "Джемпер с высоким горлом",     brand: "", cat: "Новинки", gender: "u", price: 7590,  styles: ["quiet", "classic"], occasions: ["daily", "work"],   palette: ["dark", "neutral"],  tint: "#5b4a3c" },
+  { id: 49, name: "Куртка-бомбер укороченная",    brand: "", cat: "Новинки", gender: "f", price: 11990, styles: ["trend", "casual"],  occasions: ["daily"],           palette: ["dark"],             tint: "#41332a" },
+  { id: 50, name: "Джинсы wide-leg с высокой посадкой", brand: "", cat: "Новинки", gender: "f", price: 8590, styles: ["trend", "casual"], occasions: ["daily"],       palette: ["dark", "neutral"],  tint: "#4a3a2f" },
+  { id: 51, name: "Жилет костюмный удлинённый",   brand: "", cat: "Новинки", gender: "f", price: 7990,  styles: ["trend", "quiet"],   occasions: ["work", "daily"],   palette: ["neutral", "dark"],  tint: "#6b5443" },
+  { id: 52, name: "Пальто-халат из смесовой шерсти", brand: "", cat: "Новинки", gender: "f", price: 17990, styles: ["quiet", "classic"], occasions: ["work", "daily"], palette: ["neutral"],         tint: "#75634f" },
+  { id: 53, name: "Свитшот оверсайз",             brand: "", cat: "Новинки", gender: "u", price: 5590,  styles: ["casual"],           occasions: ["daily", "sport"],  palette: ["neutral", "light"], tint: "#8d7c69" },
+  { id: 54, name: "Юбка-карандаш из экокожи",     brand: "", cat: "Новинки", gender: "f", price: 6990,  styles: ["trend", "classic"], occasions: ["work", "evening"], palette: ["dark"],             tint: "#3c2f26" },
+  { id: 55, name: "Блуза с бантом",               brand: "", cat: "Новинки", gender: "f", price: 6590,  styles: ["classic", "trend"], occasions: ["work", "evening"], palette: ["light"],            tint: "#c2ad90" },
+  { id: 56, name: "Шорты-бермуды костюмные",      brand: "", cat: "Новинки", gender: "f", price: 5990,  styles: ["trend", "casual"],  occasions: ["daily", "work"],   palette: ["neutral", "light"], tint: "#ab9a83" },
+  { id: 57, name: "Платье макси с открытой спиной", brand: "", cat: "Новинки", gender: "f", price: 12590, styles: ["trend"],          occasions: ["evening"],         palette: ["dark", "bright"],   tint: "#46362b" },
+  { id: 58, name: "Лонгслив в рубчик",            brand: "", cat: "Новинки", gender: "u", price: 3990,  styles: ["casual", "quiet"],  occasions: ["daily", "sport"],  palette: ["neutral", "light"], tint: "#9c8a76" },
+  { id: 59, name: "Двубортный блейзер в полоску", brand: "", cat: "Новинки", gender: "u", price: 13990, styles: ["classic", "trend"], occasions: ["work"],            palette: ["dark", "neutral"],  tint: "#35281f" },
 ];
 
 const WHATSAPP = "79959170705";
@@ -79,15 +101,16 @@ const filters = document.getElementById("catalog-filters");
 const CATS = ["Все", ...new Set(PRODUCTS.map((p) => p.cat))];
 
 function productCard(p) {
-  const msg = encodeURIComponent(`Здравствуйте! Интересует: ${p.brand} — ${p.name} (${fmt(p.price)}). Подскажите наличие и сроки.`);
+  const title = p.brand ? `${p.brand} — ${p.name}` : p.name;
+  const msg = encodeURIComponent(`Здравствуйте! Интересует: ${title} (${fmt(p.price)}). Подскажите наличие и сроки.`);
   const media = p.image
-    ? `<img class="product__img" src="${p.image}" alt="${p.brand} — ${p.name}" loading="lazy">`
-    : `<div class="product__img product__img--tint" style="--tint:${p.tint}"><span>${p.brand}</span></div>`;
+    ? `<img class="product__img" src="${p.image}" alt="${title}" loading="lazy">`
+    : `<div class="product__img product__img--tint" style="--tint:${p.tint}"><span>${p.brand || "FAY"}</span></div>`;
   return `
     <article class="product">
       ${media}
       <div class="product__body">
-        <p class="product__brand">${p.brand}</p>
+        ${p.brand ? `<p class="product__brand">${p.brand}</p>` : `<p class="product__brand">Новинка</p>`}
         <h3 class="product__name">${p.name}</h3>
         <div class="product__row">
           <span class="product__price">${fmt(p.price)}</span>
@@ -276,7 +299,7 @@ function showResult(picks) {
     picksEl.innerHTML = picks.map(productCard).join("");
     const total = picks.reduce((s, p) => s + p.price, 0);
     totalEl.textContent = `Образ целиком: ${fmt(total)}`;
-    const list = picks.map((p) => `• ${p.brand} — ${p.name} (${fmt(p.price)})`).join("\n");
+    const list = picks.map((p) => `• ${p.brand ? p.brand + " — " : ""}${p.name} (${fmt(p.price)})`).join("\n");
     const msg = encodeURIComponent(
       `Здравствуйте! ИИ-стилист на сайте собрал для меня подборку (${STYLE_NAMES[answers.style]}, ${OCCASION_NAMES[answers.occasion]}):\n${list}\nИтого: ${fmt(total)}. Подскажите наличие и сроки.`
     );
@@ -296,3 +319,112 @@ document.getElementById("result-restart").addEventListener("click", () => {
 });
 
 showQuestion();
+
+/* ============ Виртуальная примерка (бета) ============
+   Фото пользователя + фото вещи отправляются в OpenAI gpt-image-1
+   (images/edits). Ключ хранится только в localStorage владельца —
+   для продакшена вынести вызов в серверный прокси (см. README). */
+(function () {
+  const fileInput = document.getElementById("tryon-file");
+  if (!fileInput) return;
+
+  const uploadBox = document.getElementById("tryon-upload");
+  const preview = document.getElementById("tryon-preview");
+  const uploadHint = document.getElementById("tryon-upload-hint");
+  const itemsBox = document.getElementById("tryon-items");
+  const goBtn = document.getElementById("tryon-go");
+  const statusEl = document.getElementById("tryon-status");
+  const resultBox = document.getElementById("tryon-result");
+  const sendLink = document.getElementById("tryon-send");
+  const keyBtn = document.getElementById("tryon-key");
+
+  let userFile = null;
+  let selected = null;
+
+  /* вещи с фото — только их можно примерить */
+  const wearable = PRODUCTS.filter((p) => p.image);
+  itemsBox.innerHTML = wearable
+    .map((p) => `<button class="tryon__item" data-id="${p.id}" title="${p.name}">
+        <img src="${p.image}" alt="${p.name}" loading="lazy"><span>${p.name}</span>
+      </button>`)
+    .join("");
+
+  itemsBox.addEventListener("click", (e) => {
+    const btn = e.target.closest(".tryon__item");
+    if (!btn) return;
+    itemsBox.querySelectorAll(".tryon__item").forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    selected = wearable.find((p) => p.id === Number(btn.dataset.id));
+  });
+
+  uploadBox.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    userFile = fileInput.files[0] || null;
+    if (userFile) {
+      preview.src = URL.createObjectURL(userFile);
+      preview.hidden = false;
+      uploadHint.hidden = true;
+    }
+  });
+
+  keyBtn.addEventListener("click", () => {
+    const cur = localStorage.getItem("fay_ai_key") || "";
+    const v = prompt("Ключ OpenAI API (хранится только в этом браузере):", cur);
+    if (v !== null) {
+      v ? localStorage.setItem("fay_ai_key", v.trim()) : localStorage.removeItem("fay_ai_key");
+      setStatus(v ? "Ключ сохранён." : "Ключ удалён.");
+    }
+  });
+
+  function setStatus(text) {
+    statusEl.textContent = text;
+    statusEl.hidden = !text;
+  }
+
+  goBtn.addEventListener("click", async () => {
+    if (!userFile) return setStatus("Сначала загрузите своё фото.");
+    if (!selected) return setStatus("Выберите вещь для примерки.");
+    const key = localStorage.getItem("fay_ai_key");
+    if (!key) {
+      return setStatus("ИИ-примерка почти готова: осталось подключить ключ (кнопка «⚙ ключ ИИ»). А пока отправьте фото консьержу — подберём вручную.");
+    }
+
+    goBtn.disabled = true;
+    setStatus("Генерируем образ — обычно 20–40 секунд…");
+    resultBox.innerHTML = "<span class='tryon__spin'></span>";
+
+    try {
+      const itemBlob = await (await fetch(selected.image)).blob();
+      const fd = new FormData();
+      fd.append("model", "gpt-image-1");
+      fd.append("image[]", userFile, "person.jpg");
+      fd.append("image[]", itemBlob, "item.jpg");
+      fd.append("prompt",
+        `Надень на человека с первой фотографии вещь со второй фотографии (${selected.name}). ` +
+        "Сохрани лицо, позу, фигуру и фон человека без изменений. Фотореалистичный результат, " +
+        "естественная посадка вещи, освещение как на исходном фото.");
+      fd.append("size", "1024x1536");
+
+      const resp = await fetch("https://api.openai.com/v1/images/edits", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + key },
+        body: fd,
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error && data.error.message || resp.statusText);
+
+      const b64 = data.data && data.data[0] && data.data[0].b64_json;
+      if (!b64) throw new Error("Пустой ответ нейросети");
+      resultBox.innerHTML = `<img src="data:image/png;base64,${b64}" alt="Ваш образ: ${selected.name}">`;
+      setStatus("Готово! Если нравится — отправьте образ консьержу.");
+      const msg = encodeURIComponent(`Здравствуйте! Примерила на сайте: ${selected.name} (${fmt(selected.price)}). Хочу обсудить заказ.`);
+      sendLink.href = `https://wa.me/${WHATSAPP}?text=${msg}`;
+      sendLink.hidden = false;
+    } catch (err) {
+      resultBox.innerHTML = "<span>Не получилось 🕊</span>";
+      setStatus("Ошибка генерации: " + err.message + ". Проверьте ключ или попробуйте позже.");
+    } finally {
+      goBtn.disabled = false;
+    }
+  });
+})();
