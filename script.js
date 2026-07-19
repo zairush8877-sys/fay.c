@@ -23,6 +23,8 @@ const PRODUCTS = [
   { id: 18, name: "Очки в тонкой оправе",        brand: "Gentle Monster", cat: "Аксессуары",     gender: "u", price: 32000,  styles: ["trend", "casual"],  occasions: ["daily", "evening"],palette: ["neutral", "bright"],tint: "#75634f" },
   { id: 19, name: "Часы Baignoire",              brand: "Cartier",        cat: "Аксессуары",     gender: "f", price: 780000, styles: ["classic", "quiet"], occasions: ["evening", "work"], palette: ["neutral", "light"], tint: "#93825e" },
   { id: 20, name: "Шёлковый платок",             brand: "Toteme",         cat: "Аксессуары",     gender: "f", price: 24000,  styles: ["quiet", "classic"], occasions: ["daily", "work"],   palette: ["light", "neutral"], tint: "#ab9a83" },
+  { id: 21, name: "Кольцо B.zero1, жёлтое золото", brand: "Bvlgari",      cat: "Аксессуары",     gender: "u", price: 460000, styles: ["classic", "quiet"], occasions: ["evening", "work"], palette: ["light", "neutral"], tint: "#93825e", image: "img/bvlgari-bzero1.jpg" },
+  { id: 22, name: "Колье с жемчугом", brand: "Chanel",                    cat: "Аксессуары",     gender: "f", price: 520000, styles: ["classic", "trend"], occasions: ["evening"],         palette: ["light", "neutral"], tint: "#8d7c69", image: "img/chanel-pearls.jpg" },
 ];
 
 const WHATSAPP = "79959170705";
