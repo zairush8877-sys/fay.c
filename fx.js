@@ -6,7 +6,69 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = matchMedia("(pointer: fine)").matches;
 
-  if (reduced) return;
+  if (reduced) {
+    document.body.classList.add("is-loaded");
+    return;
+  }
+
+  /* ---------- Прелоадер со счётчиком ---------- */
+  const pre = document.getElementById("preloader");
+  if (pre) {
+    const num = document.getElementById("preloader-num");
+    let n = 0;
+    const timer = setInterval(() => {
+      n = Math.min(100, n + 3 + Math.floor(Math.random() * 6));
+      num.textContent = n;
+      if (n >= 100) {
+        clearInterval(timer);
+        setTimeout(() => {
+          document.body.classList.add("is-loaded");
+          setTimeout(() => pre.remove(), 1000);
+        }, 220);
+      }
+    }, 42);
+  } else {
+    document.body.classList.add("is-loaded");
+  }
+
+  /* ---------- Прогресс чтения ---------- */
+  const bar = document.createElement("div");
+  bar.id = "progressbar";
+  document.body.appendChild(bar);
+
+  /* ---------- Заливка манифеста при скролле ---------- */
+  const fill = document.getElementById("fillwords");
+  let fillWords = [];
+  if (fill) {
+    fill.innerHTML = fill.textContent.trim().split(/\s+/)
+      .map((w) => `<span class="w">${w}</span>`).join(" ");
+    fillWords = Array.from(fill.querySelectorAll(".w"));
+  }
+
+  function onScroll() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + "%";
+
+    if (fillWords.length) {
+      const r = fill.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.82 - r.top) / (innerHeight * 0.6)));
+      const upto = Math.floor(p * fillWords.length);
+      fillWords.forEach((w, i) => w.classList.toggle("on", i < upto));
+    }
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Фото раскрываются шторкой ---------- */
+  const shutter = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        en.target.classList.add("is-shown");
+        shutter.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll(".order__img, .about__photo").forEach((el) => shutter.observe(el));
 
   /* ---------- Живой герой: кинолента + параллакс ---------- */
   const heroPhotoBox = document.querySelector(".hero__photo");
@@ -134,8 +196,14 @@
         const card = e.target.closest(".ring3d__card");
         if (card) {
           const chip = document.querySelector(`.chip[data-cat="${card.dataset.cat}"]`);
-          if (chip) chip.click();
-          document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
+          const catalog = document.getElementById("catalog");
+          if (chip && catalog) {
+            chip.click();
+            catalog.scrollIntoView({ behavior: "smooth" });
+          } else {
+            /* страница коллекции: ведём на витрину главной */
+            location.href = "index.html#catalog";
+          }
         }
       }
     });
