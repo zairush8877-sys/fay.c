@@ -66,6 +66,11 @@
 </head>
 <body>
 
+  <div id="preloader" aria-hidden="true">
+    <span class="preloader__mark">FC</span>
+    <span class="preloader__num"><span id="preloader-num">0</span>%</span>
+  </div>
+
   <header class="header" id="header">
     <nav class="nav container">
       <a href="#home" class="nav__logo" aria-label="Fay Concept — на главную">
@@ -80,6 +85,7 @@
         <li><a href="#how" class="nav__link">Как это работает</a></li>
         <li><a href="#stylist" class="nav__link">ИИ-стилист</a></li>
         <li><a href="#catalog" class="nav__link">Витрина</a></li>
+        <li><a href="collection.html" class="nav__link">Коллекция</a></li>
         <li><a href="#contact" class="nav__link nav__link--btn">Контакты</a></li>
       </ul>
     </nav>
@@ -96,9 +102,12 @@
         <img src="img/space-wardrobe.jpg" alt="" loading="lazy">
         <span class="hero__photo-caption" id="hero-caption">Bvlgari B.zero1 · из последних заказов</span>
       </div>
-      <div class="container hero__inner reveal">
+      <div class="container hero__inner">
         <p class="hero__eyebrow">Консьерж-сервис · Concept store · Нальчик</p>
-        <h1 class="hero__title">Тихая <em>curated</em>-зона</h1>
+        <h1 class="hero__title">
+          <span class="tline"><span>Тихая</span></span>
+          <span class="tline"><span><em>curated</em>-зона</span></span>
+        </h1>
         <p class="hero__subtitle">
           Вещи, прошедшие систему фильтрации. Поиск и подбор оригинальных
           позиций брендов со всего мира — через личного консьержа
@@ -118,6 +127,14 @@
       <div class="brands__track">
         <span>Chanel</span><i>·</i><span>Hermès</span><i>·</i><span>Cartier</span><i>·</i><span>Louis Vuitton</span><i>·</i><span>Bvlgari</span><i>·</i><span>Loewe</span><i>·</i><span>The Row</span><i>·</i><span>Bottega Veneta</span><i>·</i><span>Gentle Monster</span><i>·</i><span>Miu Miu</span><i>·</i>
         <span>Chanel</span><i>·</i><span>Hermès</span><i>·</i><span>Cartier</span><i>·</i><span>Louis Vuitton</span><i>·</i><span>Bvlgari</span><i>·</i><span>Loewe</span><i>·</i><span>The Row</span><i>·</i><span>Bottega Veneta</span><i>·</i><span>Gentle Monster</span><i>·</i><span>Miu Miu</span><i>·</i>
+      </div>
+    </div>
+
+    <!-- Манифест -->
+    <div class="manifesto" aria-hidden="true">
+      <div class="manifesto__track">
+        <span>Тихая роскошь</span><i>✦</i><span>Fay Concept</span><i>✦</i><span>Только оригинал</span><i>✦</i><span>Личный консьерж</span><i>✦</i>
+        <span>Тихая роскошь</span><i>✦</i><span>Fay Concept</span><i>✦</i><span>Только оригинал</span><i>✦</i><span>Личный консьерж</span><i>✦</i>
       </div>
     </div>
 
@@ -267,7 +284,14 @@
       </div>
     </section>
 
-    <!-- Примерочная: закулисье -->
+    <!-- Манифест-заливка -->
+    <section class="section fillblock">
+      <div class="container">
+        <p class="fillwords" id="fillwords">Мы находим вещи, которые говорят за вас, — в бутиках Парижа, Милана и Сеула. Проверка подлинности, фирменная упаковка и личное вручение — в каждой позиции.</p>
+      </div>
+    </section>
+
+    <!-- Из последних заказов -->
     <section class="section section--orders" id="orders">
       <div class="container">
         <p class="section__eyebrow reveal">Из последних заказов</p>
@@ -339,18 +363,6 @@
           </figure>
         </div>
       </div>
-    </section>
-
-    <!-- 3D-коллекция -->
-    <section class="section section--ring" id="collection">
-      <div class="container">
-        <p class="section__eyebrow reveal">Коллекция</p>
-        <h2 class="section__title reveal">Покрутите — как витрину в бутике</h2>
-      </div>
-      <div class="ring3d reveal" id="ring3d" aria-label="3D-карусель фотографий коллекции">
-        <div class="ring3d__stage" id="ring3d-stage"></div>
-      </div>
-      <p class="ring3d__hint">Тяните мышкой или пальцем · кадр кликабелен</p>
     </section>
 
     <!-- Виртуальная примерка -->

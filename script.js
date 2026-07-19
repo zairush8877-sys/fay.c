@@ -98,6 +98,7 @@ document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 /* ============ Витрина ============ */
 const grid = document.getElementById("catalog-grid");
 const filters = document.getElementById("catalog-filters");
+if (grid && filters) {
 const CATS = ["Все", ...new Set(PRODUCTS.map((p) => p.cat))];
 
 function productCard(p) {
@@ -138,6 +139,7 @@ filters.addEventListener("click", (e) => {
 });
 
 renderCatalog("Все");
+}
 
 /* ============ ИИ-стилист ============ */
 const QUESTIONS = [
@@ -196,6 +198,8 @@ const STYLE_NAMES = { quiet: "тихая роскошь", classic: "класси
 const OCCASION_NAMES = { daily: "на каждый день", work: "для работы и встреч", evening: "для вечера", sport: "для спорта и путешествий" };
 
 const quizEl = document.getElementById("quiz");
+if (quizEl) initStylist();
+function initStylist() {
 const thinkingEl = document.getElementById("thinking");
 const resultEl = document.getElementById("result");
 const qTitle = document.getElementById("quiz-question");
@@ -319,6 +323,7 @@ document.getElementById("result-restart").addEventListener("click", () => {
 });
 
 showQuestion();
+}
 
 /* ============ Виртуальная примерка (бета) ============
    Фото пользователя + фото вещи отправляются в OpenAI gpt-image-1
