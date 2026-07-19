@@ -52,6 +52,99 @@
     }
   }
 
+  /* ---------- 3D-кольцо коллекции ---------- */
+  const ringBox = document.getElementById("ring3d");
+  if (ringBox) initRing(ringBox);
+
+  function initRing(box) {
+    const stage = document.getElementById("ring3d-stage");
+    const photos = [
+      { src: "img/chanel-22-mini.jpg", cat: "Сумки" },
+      { src: "img/cartier-tank.jpg", cat: "Аксессуары" },
+      { src: "img/hermes-evelyne.jpg", cat: "Сумки" },
+      { src: "img/bvlgari-viper-set.jpg", cat: "Аксессуары" },
+      { src: "img/loewe-puzzle.jpg", cat: "Сумки" },
+      { src: "img/chanel-bordeaux.jpg", cat: "Сумки" },
+      { src: "img/bvlgari-tubogas.jpg", cat: "Аксессуары" },
+      { src: "img/lv-speedy.jpg", cat: "Сумки" },
+      { src: "img/chanel-mules.jpg", cat: "Обувь" },
+      { src: "img/bvlgari-bzero1.jpg", cat: "Аксессуары" },
+    ];
+    const N = photos.length;
+
+    stage.innerHTML = photos
+      .map((p, i) => `<div class="ring3d__card" data-cat="${p.cat}" data-i="${i}"><img src="${p.src}" alt="" loading="lazy" draggable="false"></div>`)
+      .join("");
+    const cards = Array.from(stage.children);
+
+    let theta = 0;          /* текущий угол кольца */
+    let vel = 0.05;         /* авто-вращение, °/кадр */
+    let dragging = false;
+    let lastX = 0;
+    let dragMoved = 0;
+
+    function radius() {
+      return Math.min(box.offsetWidth * 0.36, 480);
+    }
+
+    function frame() {
+      if (!dragging) theta += vel;
+      /* инерция затухает к авто-скорости */
+      vel += (0.05 - vel) * 0.02;
+
+      const R = radius();
+      for (let i = 0; i < N; i++) {
+        const a = ((i / N) * 360 + theta) * Math.PI / 180;
+        const z = Math.cos(a);          /* -1 сзади … 1 спереди */
+        const deg = (i / N) * 360 + theta;
+        cards[i].style.transform =
+          `rotateY(${deg}deg) translateZ(${R}px) scale(${0.82 + z * 0.18})`;
+        cards[i].style.filter = `brightness(${0.45 + (z + 1) * 0.3})`;
+        cards[i].style.zIndex = Math.round(z * 100) + 100;
+        cards[i].style.opacity = z < -0.55 ? 0.35 : 1;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    box.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      dragMoved = 0;
+      lastX = e.clientX;
+      box.classList.add("is-dragging");
+      box.setPointerCapture(e.pointerId);
+    });
+
+    box.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX;
+      lastX = e.clientX;
+      dragMoved += Math.abs(dx);
+      theta += dx * 0.25;
+      vel = dx * 0.12; /* инерция после отпускания */
+    });
+
+    function endDrag() {
+      dragging = false;
+      box.classList.remove("is-dragging");
+    }
+    box.addEventListener("pointerup", (e) => {
+      endDrag();
+      /* клик без протяжки — открыть категорию в витрине */
+      if (dragMoved < 6) {
+        const card = e.target.closest(".ring3d__card");
+        if (card) {
+          const chip = document.querySelector(`.chip[data-cat="${card.dataset.cat}"]`);
+          if (chip) chip.click();
+          document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+    box.addEventListener("pointercancel", endDrag);
+    box.addEventListener("pointerleave", endDrag);
+
+    requestAnimationFrame(frame);
+  }
+
   /* ---------- Фирменный курсор ---------- */
   if (finePointer) {
     const dot = document.createElement("div");
