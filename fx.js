@@ -8,10 +8,11 @@
 
   if (reduced) return;
 
-  /* ---------- Мягкий параллакс фото в герое ---------- */
-  const heroPhoto = document.querySelector(".hero__photo img");
+  /* ---------- Живой герой: кинолента + параллакс ---------- */
+  const heroPhotoBox = document.querySelector(".hero__photo");
   const hero = document.querySelector(".hero");
-  if (heroPhoto && hero && finePointer) {
+
+  if (heroPhotoBox && hero && finePointer) {
     let tx = 0, ty = 0, cx = 0, cy = 0;
     hero.addEventListener("mousemove", (e) => {
       const r = hero.getBoundingClientRect();
@@ -22,9 +23,33 @@
     (function drift() {
       cx += (tx - cx) * 0.045;
       cy += (ty - cy) * 0.045;
-      heroPhoto.style.translate = cx.toFixed(2) + "px " + cy.toFixed(2) + "px";
+      heroPhotoBox.style.translate = cx.toFixed(2) + "px " + cy.toFixed(2) + "px";
       requestAnimationFrame(drift);
     })();
+  }
+
+  if (heroPhotoBox) {
+    const slides = Array.from(heroPhotoBox.querySelectorAll("img"));
+    const captionEl = document.getElementById("hero-caption");
+    const CAPTIONS = [
+      "Bvlgari B.zero1 · из последних заказов",
+      "Chanel 22 mini · под запрос за 9 дней",
+      "Hermès Evelyne · две сразу, из бутика",
+      "Cartier Tank Must · привезены из Европы",
+      "Гардероб под клиента · curated-зона",
+    ];
+    let cur = 0;
+    if (slides.length > 1) {
+      setInterval(() => {
+        const prev = slides[cur];
+        cur = (cur + 1) % slides.length;
+        const next = slides[cur];
+        next.classList.toggle("zoom-out", cur % 2 === 1);
+        next.classList.add("is-active");
+        prev.classList.remove("is-active");
+        if (captionEl) captionEl.textContent = CAPTIONS[cur] || "";
+      }, 7000);
+    }
   }
 
   /* ---------- Фирменный курсор ---------- */
