@@ -58,7 +58,7 @@
     ]
   }
   </script>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2335281f'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23a9885f' text-anchor='middle'%3ECC%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2335281f'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23a9885f' text-anchor='middle'%3EFC%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
@@ -69,7 +69,7 @@
   <header class="header" id="header">
     <nav class="nav container">
       <a href="#home" class="nav__logo" aria-label="Fay Concept — на главную">
-        <span class="nav__logo-mark">CC</span>
+        <span class="nav__logo-mark">FC</span>
         <span class="nav__logo-text">FAY&nbsp;CONCEPT</span>
       </a>
       <button class="nav__toggle" id="nav-toggle" aria-label="Открыть меню" aria-expanded="false">
@@ -105,14 +105,14 @@
         </div>
         <p class="hero__address">ул. Лермонтова, 4 &nbsp;·&nbsp; ежедневно 10:00–21:00</p>
       </div>
-      <div class="hero__mark" aria-hidden="true">CC</div>
+      <div class="hero__mark" aria-hidden="true">FC</div>
     </section>
 
     <!-- Бренды -->
     <div class="brands" aria-label="Бренды, с которыми мы работаем">
       <div class="brands__track">
-        <span>Loewe</span><i>·</i><span>Gentle Monster</span><i>·</i><span>Cartier</span><i>·</i><span>The Row</span><i>·</i><span>Bottega Veneta</span><i>·</i><span>On</span><i>·</i><span>Miu Miu</span><i>·</i><span>Jacquemus</span><i>·</i>
-        <span>Loewe</span><i>·</i><span>Gentle Monster</span><i>·</i><span>Cartier</span><i>·</i><span>The Row</span><i>·</i><span>Bottega Veneta</span><i>·</i><span>On</span><i>·</i><span>Miu Miu</span><i>·</i><span>Jacquemus</span><i>·</i>
+        <span>Chanel</span><i>·</i><span>Hermès</span><i>·</i><span>Cartier</span><i>·</i><span>Louis Vuitton</span><i>·</i><span>Bvlgari</span><i>·</i><span>Loewe</span><i>·</i><span>The Row</span><i>·</i><span>Bottega Veneta</span><i>·</i><span>Gentle Monster</span><i>·</i><span>Miu Miu</span><i>·</i>
+        <span>Chanel</span><i>·</i><span>Hermès</span><i>·</i><span>Cartier</span><i>·</i><span>Louis Vuitton</span><i>·</i><span>Bvlgari</span><i>·</i><span>Loewe</span><i>·</i><span>The Row</span><i>·</i><span>Bottega Veneta</span><i>·</i><span>Gentle Monster</span><i>·</i><span>Miu Miu</span><i>·</i>
       </div>
     </div>
 
@@ -312,6 +312,60 @@
               <span class="order__note">Классика Monogram · вручена в день прилёта</span>
             </figcaption>
           </figure>
+          <figure class="order reveal">
+            <div class="order__img">
+              <img src="img/hermes-evelyne.jpg" alt="Две сумки Hermès Evelyne с фирменными коробками" loading="lazy">
+            </div>
+            <figcaption>
+              <span class="order__brand">Hermès</span>
+              Evelyne III и Evelyne TPM
+              <span class="order__note">Две сразу — из бутика, с лентами и коробками</span>
+            </figcaption>
+          </figure>
+          <figure class="order reveal">
+            <div class="order__img">
+              <img src="img/chanel-22-mini.jpg" alt="Сумка Chanel 22 mini в фирменной коробке" loading="lazy">
+            </div>
+            <figcaption>
+              <span class="order__brand">Chanel</span>
+              Chanel 22 mini
+              <span class="order__note">Чёрная кожа, золотая фурнитура — под запрос за 9 дней</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Виртуальная примерка -->
+    <section class="section section--dark" id="tryon">
+      <div class="container">
+        <p class="section__eyebrow reveal">Виртуальная примерка · бета</p>
+        <h2 class="section__title reveal">Примерьте, не выходя из дома</h2>
+        <p class="tryon__lead reveal">
+          Загрузите своё фото, выберите вещь с витрины — ИИ «наденет» её на вас.
+          Фото никуда не сохраняется: снимок уходит напрямую в нейросеть и показывается только вам.
+        </p>
+        <div class="tryon reveal">
+          <div class="tryon__col">
+            <label class="tryon__upload" id="tryon-upload">
+              <input type="file" id="tryon-file" accept="image/*" hidden>
+              <img id="tryon-preview" alt="" hidden>
+              <span id="tryon-upload-hint">Нажмите, чтобы загрузить своё фото<br><small>в полный рост, хорошее освещение</small></span>
+            </label>
+          </div>
+          <div class="tryon__col">
+            <p class="tryon__label">Что примеряем</p>
+            <div class="tryon__items" id="tryon-items"></div>
+            <button class="btn btn--primary tryon__go" id="tryon-go">Примерить</button>
+            <p class="tryon__status" id="tryon-status" hidden></p>
+            <button class="tryon__key" id="tryon-key">⚙ ключ ИИ</button>
+          </div>
+          <div class="tryon__col">
+            <div class="tryon__result" id="tryon-result">
+              <span>Здесь появится ваш образ</span>
+            </div>
+            <a class="tryon__send" id="tryon-send" href="#" target="_blank" rel="noopener" hidden>Отправить образ консьержу →</a>
+          </div>
         </div>
       </div>
     </section>
