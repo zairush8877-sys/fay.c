@@ -348,6 +348,38 @@ a { color: inherit; }
 .about__text p { color: var(--muted); font-size: 1.02rem; }
 .about__text p + p { margin-top: 18px; }
 
+.about__photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 4 / 5;
+}
+
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.about__photo:hover img { transform: scale(1.04); }
+
+@media (min-width: 861px) {
+  .about__grid { grid-template-columns: 1fr 1fr 0.85fr; gap: 44px; }
+}
+
+/* ============ Пространство ============ */
+.section--space { background: var(--bg-alt); }
+
+.section--space .orders { grid-template-columns: repeat(3, 1fr); margin-top: 40px; }
+
+.section--space .order figcaption { color: var(--ink); }
+.section--space .order__note { color: var(--muted); }
+
+@media (max-width: 860px) {
+  .section--space .orders { grid-template-columns: 1fr; }
+}
+
 /* ============ Шаги ============ */
 .steps {
   list-style: none;
