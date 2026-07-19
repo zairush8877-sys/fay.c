@@ -25,6 +25,11 @@ const PRODUCTS = [
   { id: 20, name: "Шёлковый платок",             brand: "Toteme",         cat: "Аксессуары",     gender: "f", price: 24000,  styles: ["quiet", "classic"], occasions: ["daily", "work"],   palette: ["light", "neutral"], tint: "#ab9a83" },
   { id: 21, name: "Кольцо B.zero1, жёлтое золото", brand: "Bvlgari",      cat: "Аксессуары",     gender: "u", price: 460000, styles: ["classic", "quiet"], occasions: ["evening", "work"], palette: ["light", "neutral"], tint: "#93825e", image: "img/bvlgari-bzero1.jpg" },
   { id: 22, name: "Колье с жемчугом", brand: "Chanel",                    cat: "Аксессуары",     gender: "f", price: 520000, styles: ["classic", "trend"], occasions: ["evening"],         palette: ["light", "neutral"], tint: "#8d7c69", image: "img/chanel-pearls.jpg" },
+  { id: 23, name: "Часы Tank Must с бриллиантами", brand: "Cartier",      cat: "Аксессуары",     gender: "f", price: 980000, styles: ["classic", "quiet"], occasions: ["evening", "work"], palette: ["dark", "neutral"],  tint: "#3c2f26", image: "img/cartier-tank.jpg" },
+  { id: 24, name: "Серьги Serpenti Viper, белое золото", brand: "Bvlgari", cat: "Аксессуары",   gender: "f", price: 720000, styles: ["classic", "quiet"], occasions: ["evening", "work"], palette: ["light", "neutral"], tint: "#93825e", image: "img/bvlgari-viper-set.jpg" },
+  { id: 25, name: "Подвеска Serpenti Viper, белое золото", brand: "Bvlgari", cat: "Аксессуары", gender: "f", price: 560000, styles: ["classic", "quiet"], occasions: ["evening"],         palette: ["light", "neutral"], tint: "#8d7c69", image: "img/bvlgari-viper-set.jpg" },
+  { id: 26, name: "Часы Serpenti Tubogas, сталь и бриллианты", brand: "Bvlgari", cat: "Аксессуары", gender: "f", price: 1450000, styles: ["classic", "trend"], occasions: ["evening"],   palette: ["light", "neutral"], tint: "#93825e", image: "img/bvlgari-tubogas.jpg" },
+  { id: 27, name: "Сумка Speedy Bandoulière 25", brand: "Louis Vuitton",  cat: "Сумки",          gender: "f", price: 310000, styles: ["classic", "trend"], occasions: ["daily", "work"],   palette: ["dark", "neutral"],  tint: "#5d4b3b", image: "img/lv-speedy.jpg" },
 ];
 
 const WHATSAPP = "79959170705";
