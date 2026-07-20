@@ -109,7 +109,10 @@
     let dragMoved = 0;
 
     function radius() {
-      return Math.min(box.offsetWidth * 0.36, 480);
+      /* радиус не меньше, чем нужно, чтобы кадры не слипались в кольце */
+      const cw = (cards[0] && cards[0].offsetWidth) || 170;
+      const fit = (cw * N) / (2 * Math.PI) * 1.12;
+      return Math.max(Math.min(box.offsetWidth * 0.36, 480), fit);
     }
 
     function frame() {
