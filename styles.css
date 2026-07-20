@@ -1392,3 +1392,5 @@ body.is-loaded #preloader {
 @media (prefers-reduced-motion: reduce) {
   #preloader { display: none; }
 }
+
+.orders__more { text-align: center; margin-top: 44px; }
