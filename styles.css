@@ -245,6 +245,9 @@ a { color: inherit; }
     mask-image: none;
     opacity: 0.35;
   }
+
+  /* на узких экранах подпись кадра налезает на адрес — прячем её */
+  .hero__photo-caption { display: none; }
 }
 
 .hero--immersive .hero__title { color: #f2ebe1; }
@@ -752,9 +755,9 @@ a { color: inherit; }
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(170px, 22vw, 250px);
+  width: clamp(120px, 24vw, 250px);
   aspect-ratio: 3 / 4;
-  margin: calc(clamp(170px, 22vw, 250px) / -1.5) 0 0 calc(clamp(170px, 22vw, 250px) / -2);
+  margin: calc(clamp(120px, 24vw, 250px) / -1.5) 0 0 calc(clamp(120px, 24vw, 250px) / -2);
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid rgba(201, 163, 106, 0.35);
